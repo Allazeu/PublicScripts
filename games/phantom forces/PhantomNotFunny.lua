@@ -10,6 +10,11 @@
 	enjoy i guess
 --]]
 
+--[[
+	if you are reading this then go ahead and learn from it i guess.
+	PNF is public source, as you can see here so no secrets ;)
+--]]
+
 -- define big boy variables
 math.randomseed(tick()); -- random aaaa
 
@@ -549,6 +554,68 @@ end
 -- define a fake pf api because we are neato burrito and i am too lazy to execute cRaZy HaCkS
 local PF = { };
 
+local function TryCommand(m)
+	local commands = {
+		TEST = {
+			"tests to see if i am on or off (please turn me on)";
+			function()
+				if (PNFENABLED) then
+					PF.Chat:out("PNF", "yes we are gucci", Color3.new(0, 1));
+				else
+					PF.Chat:out("PNF", "no i am not gucci i am turned off", Color3.new(1));
+				end
+			end
+		};
+		
+		TOGGLE = {
+			"if you do not like me i will turn off, otherwise if you want me again i turn back on :)";
+			function()
+				PNFENABLED = not PNFENABLED;
+				if (PNFENABLED) then
+					PF.Chat:out("PNF", "ok i am so turned on rn", Color3.new(0, 1, 0));
+					version.Text = ENUM.CHAT.PNFSTATUS.ENABLED;
+				else
+					PF.Chat:out("PNF", "bro, you just killed my vibe. that was wiggity wack, yo.", Color3.new(1, 0, 0));
+					version.Text = ENUM.CHAT.PNFSTATUS.DISABLED;
+				end
+			end
+		};
+		
+		SERVERVERSION = {
+			"shows this piece of shit server's current version";
+			function()
+				PF.Chat:out("PNF", "this piece of shit server is currently: " .. PF.Core.ServerVersion, Color3.new(1, 1, 0));
+			end
+		};
+		
+		VOLUME = {
+			"sets the volume multiplier for sounds used, only use if you do not like loud sound you baby";
+			function()
+				local v = m[2];
+				volume = tonumber(v) or 1;
+				
+				PF.Chat:out("PNF", "ok i set the volume to: " .. v, Color3.new(0, 1, 0));
+			end
+		};
+	};
+	
+	commands.HELP = {
+		"shows a list of shitty commands that can be used with PNF";
+		function()
+			PF.Chat:out("PNF", "showing commands:", Color3.new(0, 1));
+			for name, stuff in next, commands do
+				local desc = stuff[1];
+				PF.Chat:out("PNF > " .. name, desc, Color3.new(1, 1));
+			end
+		end
+	};
+	
+	local cmd = commands[m[1]];
+	if (cmd) then
+		cmd[2]();
+	end
+end
+
 do
 	local maingui = wfc(self.PlayerGui, "MainGui");
 	local gamegui = wfc(maingui, "GameGui");
@@ -645,7 +712,7 @@ do
 				wait();
 				local speaker = mes.Text:match(speakerpattern);
 				
-				if (speaker) then
+				if (speaker and not speaker:find("PNF")) then
 					local message = mes.Msg.Text;
 					if (PNFENABLED) then
 						ev:FireEvent('playerchatted', PlayerService:Get(speaker), message, mes);
@@ -664,44 +731,7 @@ do
 				
 				if (message:sub(0, 4) == "/pnf") then
 					local m = message:sub(6):upper():split(' ');
-					switch(m[1], {
-						TEST = function()
-							PF.Chat:out("PNF", "yes we are gucci", Color3.new(0, 1, 0));
-						end;
-						
-						COOLNAME = function()
-							local name = "XxX_dIcKsLaYeR_42069_XxX";
-							PF.Chat:out("PNF", "set name to " .. name, Color3.new(0, 1, 0));
-							PF.Core:setname(name);
-						end;
-						
-						REVERTNAME = function()
-							PF.Chat:out("PNF", "set name back to " .. tostring(self), Color3.new(0, 1, 0));
-							PF.Core:revertname();
-						end;
-						
-						TOGGLE = function()
-							PNFENABLED = not PNFENABLED;
-							if (PNFENABLED) then
-								PF.Chat:out("PNF", "ok i am so turned on rn", Color3.new(0, 1, 0));
-								version.Text = ENUM.CHAT.PNFSTATUS.ENABLED;
-							else
-								PF.Chat:out("PNF", "bro, you just killed my vibe. that was wiggity wack, yo.", Color3.new(1, 0, 0));
-								version.Text = ENUM.CHAT.PNFSTATUS.DISABLED;
-							end
-						end;
-						
-						SERVERVERSION = function()
-							PF.Chat:out("PNF", "this piece of shit server is currently: " .. SERVERVERSION, Color3.new(1, 1, 0));
-						end;
-						
-						VOLUME = function()
-							local v = m[2];
-							volume = tonumber(v) or 1;
-							
-							PF.Chat:out("PNF", "ok i set the volume to: " .. v, Color3.new(0, 1, 0));
-						end;
-					});
+					TryCommand(m);
 				end
 			end
 		end);
