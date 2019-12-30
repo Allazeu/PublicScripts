@@ -1423,6 +1423,7 @@ do
 	sound.load("sparta", 'rbxassetid://130781067'); -- old meme but who fucking cares not me
 	
 	PF.Chat:out("PNF", "PhantomNotFunny by Centurian : Version " .. version, Color3.new(0, 1));
+	PF.Chat:out("PNF", "Say \"/pnf help\" to see commands" .. version, Color3.new(0, 1));
 	PF.Chat:out("PNF", gamble(blackreadymessages), Color3.new(1, 1));
 	
 	init();
