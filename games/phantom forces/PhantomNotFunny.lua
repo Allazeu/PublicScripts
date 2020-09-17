@@ -14,7 +14,6 @@
 	if you are reading this then go ahead and learn from it i guess.
 	PNF is public source, as you can see here so no secrets ;)
 --]]
-
 -- define big boy variables
 math.randomseed(tick()); -- random aaaa
 
@@ -668,7 +667,7 @@ do
 			setname = me;
 		end
 		
-		workspace.DeadBody.ChildAdded:Connect(function(c) -- connect to when somebody dies xd
+		workspace.Ignore.DeadBody.ChildAdded:Connect(function(c) -- connect to when somebody dies xd
 			if (c:IsA('Model') and c.Name == 'Dead' and PNFENABLED) then
 				ev:FireEvent('deadbody', c);
 			end
