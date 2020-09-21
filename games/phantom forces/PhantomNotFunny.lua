@@ -17,7 +17,7 @@
 -- define big boy variables
 math.randomseed(tick()); -- random aaaa
 
-local version = "PUBLIC ALPHA 1.2 2019.12.30";
+local version = "PUBLIC ALPHA 1.2 2020.09.21";
 local PNFENABLED = true;
 local volume = 1;
 
