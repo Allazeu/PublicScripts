@@ -334,6 +334,9 @@ local function init() -- connections and shi
 				"bababooey";
 				"ouch";
 				"femur";
+				
+				-- 20/10/16
+				"dolphin";
 			};
 			
 			headshot = { -- hit a funky headshot congrat
@@ -687,6 +690,9 @@ do
 	sound.load("bababooey", 'rbxassetid://4935133272'); -- bruh bruh booey
 	sound.load("ouch", 'rbxassetid://12222058'); -- ouch!
 	sound.load("femur", 'rbxassetid://4620905105'); -- huhuhuhuh aaaaaaaaaaahhhhhhhhh
+	
+	-- 20/10/16
+	sound.load("dolphin", 'rbxassetid://1569053161'); -- spink
 	
 	--------------------------------
 	PF.Chat:out("PNF", "PhantomNotFunny by Centurian : Version " .. version, Color3.new(0, 1));
