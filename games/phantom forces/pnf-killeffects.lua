@@ -108,7 +108,7 @@ return function(Instance, sound)
 			sounds = {"rbxassetid://260433522"},
 
 			fn = function(corpse)
-				local head = corpse.Head;
+				local head = corpse.Torso;
 				
 				for _, v in next, corpse:GetChildren() do
 					if (v:IsA('BasePart')) then
