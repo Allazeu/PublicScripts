@@ -67,10 +67,10 @@ return function(Instance, sound)
 					Anchored = true,
 					CanCollide = false,
 					CastShadow = false,
-					Size = v3(3, 500, 3)
+					Size = v3(3, 3, 500)
 				});
 				
-				bolt.CFrame = CFrame.new(head.Position + v3(random:NextNumber(-1, 1), 495, random:NextNumber(-1, 1)), head.Position);
+				bolt.CFrame = CFrame.new(v3(head.Position.x + random:NextNumber(-1, 1), head.Position.y + random:NextNumber(-1, 1), head.Position.z + 250), head.Position);
 				sound.rawplay("rbxassetid://858154930", {par = head});
 				
 				game:GetService('Debris'):AddItem(bolt, 0.25);
