@@ -86,14 +86,49 @@ return function(Instance, sound)
 
 			fn = function(corpse)
 				local head = corpse.Head;
-				game:GetService('Debris'):AddItem(Instance.new("Explosion", head, {
+				local explosion = Instance.new("Explosion", head, {
 					BlastPressure = 0,
 					BlastRadius = 0,
 					ExplosionType = Enum.ExplosionType.NoCraters,
-					
-					Position = head.Position
-				}), 1);
+
+					Position = head.Position,
+					Visible = true
+				});
+				
+				game:GetService('Debris'):AddItem(explosion, 1);
+				
 				sound.rawplay("rbxassetid://4761049714", {par = head});
+			end,
+		},
+		
+		{
+			name = "ice",
+			description = "ICE!",
+
+			sounds = {"rbxassetid://260433522"},
+
+			fn = function(corpse)
+				local head = corpse.Head;
+				local pos = head.Position + v3(0, 5, 0);
+				
+				for _, v in next, corpse:GetChildren() do
+					if (v:IsA('BasePart')) then
+						v.Anchored = true;
+					end
+				end
+				
+				corpse:MoveTo(pos);
+				local ice = Instance.new('Part', corpse, {
+					Anchored = true,
+					CanCollide = false,
+					BrickColor = BrickColor.new("Medium blue"),
+					Transparency = 0.67,
+					Size = v3(5, 7, 5);
+					Position = pos,
+					Material = Enum.Material.Ice,
+				});
+				
+				sound.rawplay("rbxassetid://260433522", {par = head});
 			end,
 		},
 	};
