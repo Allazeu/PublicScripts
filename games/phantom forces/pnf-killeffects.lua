@@ -42,6 +42,7 @@ return function(Instance, sound)
 						
 						v.Anchored = false;
 						v.Massless = true;
+						v.CanCollide = false;
 					end
 				end
 				
@@ -74,6 +75,23 @@ return function(Instance, sound)
 				sound.rawplay("rbxassetid://858154930", {par = head});
 				
 				game:GetService('Debris'):AddItem(bolt, 0.25);
+			end,
+		},
+		
+		{
+			name = "fart",
+			description = "boom",
+
+			sounds = {"rbxassetid://4761049714"},
+
+			fn = function(corpse)
+				local head = corpse.Head;
+				game:GetService('Debris'):AddItem(Instance.new("Explosion", head, {
+					BlastPressure = 0,
+					BlastRadius = 0,
+					ExplosionType = Enum.ExplosionType.NoCraters
+				}), 1);
+				sound.rawplay("rbxassetid://4761049714", {par = head});
 			end,
 		},
 	};
