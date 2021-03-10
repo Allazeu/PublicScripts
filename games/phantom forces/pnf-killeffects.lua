@@ -89,7 +89,9 @@ return function(Instance, sound)
 				game:GetService('Debris'):AddItem(Instance.new("Explosion", head, {
 					BlastPressure = 0,
 					BlastRadius = 0,
-					ExplosionType = Enum.ExplosionType.NoCraters
+					ExplosionType = Enum.ExplosionType.NoCraters,
+					
+					Position = head.Position
 				}), 1);
 				sound.rawplay("rbxassetid://4761049714", {par = head});
 			end,
