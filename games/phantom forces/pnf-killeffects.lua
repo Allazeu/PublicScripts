@@ -109,6 +109,7 @@ return function(Instance, sound)
 
 			fn = function(corpse)
 				local head = corpse.Torso;
+				local pos = head.Position - v3(0, 0, 0)
 				
 				for _, v in next, corpse:GetChildren() do
 					if (v:IsA('BasePart')) then
@@ -116,14 +117,13 @@ return function(Instance, sound)
 					end
 				end
 				
-				corpse:MoveTo(head.Position);
 				local ice = Instance.new('Part', corpse, {
 					Anchored = true,
 					CanCollide = false,
 					BrickColor = BrickColor.new("Medium blue"),
 					Transparency = 0.67,
 					Size = v3(5, 7, 5);
-					Position = head.Position,
+					Position = pos,
 					Material = Enum.Material.Ice,
 				});
 				
