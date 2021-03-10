@@ -20,7 +20,7 @@ return function(Instance, sound)
 					end
 				end
 				
-				sound.rawplay("rbxassetid://269252174", {par = corpse.HumanoidRootPart});
+				sound.rawplay("rbxassetid://269252174", {par = corpse.Head});
 			end,
 		},
 		
@@ -37,7 +37,7 @@ return function(Instance, sound)
 					v.Massless = true;
 				end
 				
-				local bv = Instance.new('BodyVelocity', corpse.HumanoidRootPart, {
+				local bv = Instance.new('BodyVelocity', corpse.Head, {
 					MaxForce = v3(0, 40000, 0);
 					Velocity = v3(0, 50, 0);
 					P = 1000;
