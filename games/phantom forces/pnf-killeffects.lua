@@ -21,7 +21,7 @@ return function(Instance, sound)
 					end
 				end
 				
-				sound.rawplay("rbxassetid://269252174", {par = corpse.Head});
+				sound.rawplay("rbxassetid://269252174", {par = corpse.Torso});
 			end,
 		},
 		
@@ -32,11 +32,12 @@ return function(Instance, sound)
 			sounds = { },
 
 			fn = function(corpse)
+				local torso = corpse.Torso;
 				for _, v in next, corpse:GetChildren() do
 					if (v:IsA('BasePart')) then
-						local weld = Instance.new('Weld', corpse.Head, {
-							C0 = corpse.Head.CFrame:inverse() * v.CFrame,
-							Part0 = corpse.Head,
+						local weld = Instance.new('Weld', torso, {
+							C0 = torso.CFrame:inverse() * v.CFrame,
+							Part0 = torso,
 							Part1 = v
 						});
 						
@@ -46,7 +47,7 @@ return function(Instance, sound)
 					end
 				end
 				
-				local bv = Instance.new('BodyVelocity', corpse.Head, {
+				local bv = Instance.new('BodyVelocity', torso, {
 					MaxForce = v3(0, 40000, 0);
 					Velocity = v3(0, 50, 0);
 					P = 1000;
@@ -61,7 +62,7 @@ return function(Instance, sound)
 			sounds = {"rbxassetid://858154930"},
 
 			fn = function(corpse)
-				local head = corpse.Head;
+				local torso = corpse.Torso;
 				local bolt = Instance.new('Part', workspace, {
 					BrickColor = BrickColor.new("New Yeller"),
 					Material = Enum.Material.Neon,
@@ -71,8 +72,8 @@ return function(Instance, sound)
 					Size = v3(3, 500, 3)
 				});
 				
-				bolt.Position = head.Position + v3(0, 250, 0);
-				sound.rawplay("rbxassetid://858154930", {par = head});
+				bolt.Position = torso.Position + v3(0, 247, 0);
+				sound.rawplay("rbxassetid://858154930", {par = torso});
 				
 				game:GetService('Debris'):AddItem(bolt, 0.25);
 			end,
@@ -85,19 +86,18 @@ return function(Instance, sound)
 			sounds = {"rbxassetid://4761049714"},
 
 			fn = function(corpse)
-				local head = corpse.Head;
-				local explosion = Instance.new("Explosion", head, {
+				local torso = corpse.Torso;
+				local explosion = Instance.new("Explosion", torso, {
 					BlastPressure = 0,
 					BlastRadius = 0,
 					ExplosionType = Enum.ExplosionType.NoCraters,
 
-					Position = head.Position,
+					Position = torso.Position,
 					Visible = true
 				});
 				
 				game:GetService('Debris'):AddItem(explosion, 1);
-				
-				sound.rawplay("rbxassetid://4761049714", {par = head});
+				sound.rawplay("rbxassetid://4761049714", {par = torso});
 			end,
 		},
 		
@@ -108,8 +108,8 @@ return function(Instance, sound)
 			sounds = {"rbxassetid://260433522"},
 
 			fn = function(corpse)
-				local head = corpse.Torso;
-				local pos = head.Position - v3(0, 0, 0)
+				local torso = corpse.Torso;
+				local pos = torso.Position;
 				
 				for _, v in next, corpse:GetChildren() do
 					if (v:IsA('BasePart')) then
@@ -127,7 +127,7 @@ return function(Instance, sound)
 					Material = Enum.Material.Ice,
 				});
 				
-				sound.rawplay("rbxassetid://260433522", {par = head});
+				sound.rawplay("rbxassetid://260433522", {par = torso});
 			end,
 		},
 	};
