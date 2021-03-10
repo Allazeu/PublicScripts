@@ -1,4 +1,5 @@
 local v3 = Vector3.new;
+local random = Random.new(tick());
 
 return function(Instance, sound)
 	local effects = {
@@ -32,9 +33,16 @@ return function(Instance, sound)
 
 			fn = function(corpse)
 				for _, v in next, corpse:GetChildren() do
-					--v.CanCollide = false;
-					v.Anchored = false;
-					v.Massless = true;
+					if (v:IsA('BasePart')) then
+						local weld = Instance.new('Weld', corpse.Head, {
+							C0 = corpse.Head.CFrame:inverse() * v.CFrame,
+							Part0 = corpse.Head,
+							Part1 = v
+						});
+						
+						v.Anchored = false;
+						v.Massless = true;
+					end
 				end
 				
 				local bv = Instance.new('BodyVelocity', corpse.Head, {
@@ -43,11 +51,34 @@ return function(Instance, sound)
 					P = 1000;
 				});
 			end,
-		}
+		},
+		
+		{
+			name = "lightning",
+			description = "what!??! lightning?!?!!",
+
+			sounds = {"rbxassetid://858154930"},
+
+			fn = function(corpse)
+				local head = corpse.Head;
+				local bolt = Instance.new('Part', workspace, {
+					BrickColor = BrickColor.new("New Yeller"),
+					Material = Enum.Material.Neon,
+					Anchored = true,
+					CanCollide = false,
+					CastShadow = false,
+					Size = v3(3, 500, 3)
+				});
+				
+				bolt.CFrame = CFrame.new(head.Position + v3(random:NextNumber(-1, 1), 495, random:NextNumber(-1, 1)), head.Position);
+				sound.rawplay("rbxassetid://858154930", {par = head});
+				
+				game:GetService('Debris'):AddItem(bolt, 0.25);
+			end,
+		},
 	};
 	
 	local api = { };
-	local random = Random.new(tick());
 	
 	function api.get(name)
 		local element;
